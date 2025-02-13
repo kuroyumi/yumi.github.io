@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图片混合模式预览工具</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>图片混合模式预览工具</h1>
+    <div class="container">
+        <!-- 左边区域 -->
+        <div class="left-section">
+            <!-- 上层图片 -->
+            <div class="preview">
+                <h3>上层图片</h3>
+                <div class="preview-container">
+                    <canvas id="preview1"></canvas>
+                </div>
+                <input type="file" id="image1" accept="image/*">
+            </div>
+
+            <!-- 下层图片 -->
+            <div class="preview">
+                <h3>下层图片</h3>
+                <div class="preview-container">
+                    <canvas id="preview2"></canvas>
+                </div>
+                <input type="file" id="image2" accept="image/*">
+            </div>
+
+            <!-- 拖入和粘贴区域 -->
+            <div class="drag-drop-area" id="dragDropArea">
+                <p>拖入图片或粘贴图片</p>
+            </div>
+
+            <!-- 切换顺序按钮 -->
+            <button id="swapButton">切换图层顺序</button>
+
+            <!-- 说明栏 -->
+            <div class="info-box">
+                <p>上传者：铃屋十造&nbsp;&nbsp;&nbsp;<a href="https://www.xiaohongshu.com/user/profile/5e777d0600000000010076dd" target="_blank">更多工具推荐</a></p>
+            </div>
+        </div>
+
+        <!-- 右边区域 -->
+        <div class="right-section">
+            <!-- 分组 1: 变暗组 -->
+            <div class="group">
+                <h3>变暗组</h3>
+                <div class="results">
+                    <div class="result">
+                        <h4>变暗</h4>
+                        <canvas id="darken"></canvas>
+                    </div>
+                    <div class="result">
+                        <h4>正片叠底</h4>
+                        <canvas id="multiply"></canvas>
+                    </div>
+                    <div class="result">
+                        <h4>颜色加深</h4>
+                        <canvas id="color-burn"></canvas>
+                    </div>
+                    <div class="result">
+                        <h4>线性加深</h4>
+                        <canvas id="linear-burn"></canvas>
+                    </div>
+                    <div class="result">
+                        <h4>深色</h4>
+                        <canvas id="darker-color"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 分组 2: 变亮组 -->
+            <div class="group">
+                <h3>变亮组</h3>
+                <div class="results">
+                    <div class="result">
+                        <h4>变亮</h4>
+                        <canvas id="lighten"></canvas>
+                    </div>
+                    <div class="result">
+                        <h4>滤色</h4>
+                        <canvas id="screen"></canvas>
+                    </div>
+                    <div class="result">
+                        <h4>颜色减淡</h4>
+                        <canvas id="color-dodge"></canvas>
+                    </div>
+                    <div class="result">
+                        <h4>线性减淡</h4>
+                        <canvas id="linear-dodge"></canvas>
+                    </div>
+                    <div class="result">
+                        <h4>浅色</h4>
+                        <canvas id="lighter-color"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 分组 3: 叠加组 -->
+            <div class="group">
+                <h3>叠加组</h3>
+                <div class="results">
+                    <div class="result">
+                        <h4>叠加</h4>
+                        <canvas id="overlay"></canvas>
+                    </div>
+                    <div class="result">
+                        <h4>柔光</h4>
+                        <canvas id="soft-light"></canvas>
+                    </div>
+                    <div class="result">
+                        <h4>强光</h4>
+                        <canvas id="hard-light"></canvas>
+                    </div>
+                    <div class="result">
+                        <h4>亮光</h4>
+                        <canvas id="vivid-light"></canvas>
+                    </div>
+                    <div class="result">
+                        <h4>线性光</h4>
+                        <canvas id="linear-light"></canvas>
+                    </div>
+                    <div class="result">
+                        <h4>点光</h4>
+                        <canvas id="pin-light"></canvas>
+                    </div>
+                    <div class="result">
+                        <h4>实色混合</h4>
+                        <canvas id="hard-mix"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 分组 4: 其他组 -->
+            <div class="group">
+                <h3>其他组</h3>
+                <div class="results">
+                    <div class="result">
+                        <h4>差值</h4>
+                        <canvas id="difference"></canvas>
+                    </div>
+                    <div class="result">
+                        <h4>排除</h4>
+                        <canvas id="exclusion"></canvas>
+                    </div>
+                    <div class="result">
+                        <h4>减去</h4>
+                        <canvas id="subtract"></canvas>
+                    </div>
+                    <div class="result">
+                        <h4>划分</h4>
+                        <canvas id="divide"></canvas>
+                    </div>
+                    <div class="result">
+                        <h4>色相</h4>
+                        <canvas id="hue"></canvas>
+                    </div>
+                    <div class="result">
+                        <h4>饱和度</h4>
+                        <canvas id="saturation"></canvas>
+                    </div>
+                    <div class="result">
+                        <h4>颜色 </h4>
+                        <canvas id="color"></canvas>
+                    </div>
+                    <div class="result">
+                        <h4>明度 </h4>
+                        <canvas id="luminosity"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 放大效果图的模态框 -->
+    <div id="modal" class="modal">
+        <span class="close">&times;</span>
+        <div class="modal-header">
+            <h2 id="modalTitle"></h2>
+            <button id="swapModalButton">切换图层顺序</button>
+        </div>
+        <canvas id="modalCanvas"></canvas>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
